@@ -9,6 +9,7 @@ import Auth from './pages/Auth';
 import Bookshelf from './pages/Bookshelf';
 import Navbar from './components/Navbar';
 import Loading from './components/Loading';
+import './styles/styles.scss';
 
 const appPages = (
   <>
