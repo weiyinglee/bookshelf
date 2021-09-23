@@ -6,7 +6,7 @@ const BookList = ({ books, refetch }) => {
   const [book, setBook] = useState(null);
   if (books.length === 0) return <p>No result found.</p>
   return (
-    <Grid stackable doubling columns={3}>
+    <Grid columns={3}>
       {book && (
         <BookInfo
           bookId={book._id}

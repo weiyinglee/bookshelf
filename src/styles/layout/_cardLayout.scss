@@ -11,8 +11,12 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .book-img {
+    width: 110px !important;
+    height: 165px !important;
+  }
   .book-img-large {
-    width: auto !important;
-    height: auto !important;
+    width: 200px !important;
+    height: 300px !important;
   }
 }
