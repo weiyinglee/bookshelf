@@ -1,11 +1,11 @@
-import React from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
+import React, { useContext } from 'react';
+import AuthContext from '../AuthContext';
 import {
   Grid, Header, Button, Image, Segment, Icon,
 } from 'semantic-ui-react';
 
 const Auth = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect } = useContext(AuthContext);
 
   return (
     <Grid container id="auth">

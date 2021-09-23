@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Grid, Menu, Header, Button,
 } from 'semantic-ui-react';
 import Loading from '../components/Loading';
 import BookNew from '../components/BookNew';
 import BookList from '../components/BookList';
-import { useAuth0 } from '@auth0/auth0-react';
+import AuthContext from '../AuthContext';
 
 const Bookshelf = () => {
-  const { user } = useAuth0();
+  const { user } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeItem, setActiveItem] = useState('library');
@@ -41,7 +41,7 @@ const Bookshelf = () => {
     <Grid centered stackable container id="bookshelf">
       <Grid.Row>
         <Grid.Column>
-          <Header>My Bookshelf</Header>
+          <Header>{`${user.name}'s Bookshelf`}</Header>
           <BookNew refetch={() => setLoading(true)}>
             <Button
               icon="plus"

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Modal } from 'semantic-ui-react';
 import BookForm from './BookForm';
-import { useAuth0 } from '@auth0/auth0-react';
+import AuthContext from '../AuthContext';
 
 const BookNew = ({ refetch, children }) => {
-  const { user } = useAuth0();
+  const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 

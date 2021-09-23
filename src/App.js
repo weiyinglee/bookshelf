@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
+import AuthContext from './AuthContext';
 import Auth from './pages/Auth';
 import Bookshelf from './pages/Bookshelf';
 import Navbar from './components/Navbar';
-import Loading from './components/Loading';
 import './styles/styles.scss';
 
 const appPages = (
@@ -27,15 +26,13 @@ const logInPage = (
 );
 
 const App = () => {
-  const { isAuthenticated, isLoading } = useAuth0();
-
-  if (isLoading) return <Loading />
+  const { token } = useContext(AuthContext);
 
   return (
     <Router>
       <div>
-        {!isAuthenticated && logInPage}
-        {isAuthenticated && appPages}
+        {!token && logInPage}
+        {token && appPages}
       </div>
     </Router>
   );

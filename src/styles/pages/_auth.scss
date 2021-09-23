@@ -8,3 +8,15 @@
     margin-top: 1rem;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  #auth {
+    padding-top: 10rem !important;
+    .segment {
+      padding: 2rem;
+    }
+    .header {
+      font-size: 16px !important;
+    }
+  }
+}
