@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Modal, Image, Button, Form, Input,
-  TextArea,
+  TextArea, Checkbox,
 } from 'semantic-ui-react';
 
 const NEW_BOOK = {
@@ -10,6 +10,7 @@ const NEW_BOOK = {
   link: '',
   imageUrl: 'https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png',
   note: '',
+  owned: false,
 };
 
 const BookForm = ({
@@ -20,6 +21,7 @@ const BookForm = ({
   const [link, setLink] = useState(book.link);
   const [imageUrl, setImageUrl] = useState(book.imageUrl);
   const [note, setNote] = useState(book.note);
+  const [owned, setOwned] = useState(book.owned);
 
   return (
     <>
@@ -67,6 +69,13 @@ const BookForm = ({
                 onChange={(e, { value }) => setNote(value)}
               />
             </Form.Field>
+            <Form.Field>
+              <Checkbox
+                label="Owned"
+                checked={owned}
+                onChange={(e, { checked }) => setOwned(checked)}
+              />
+            </Form.Field>
           </Form>
         </Modal.Description>
       </Modal.Content>
@@ -77,7 +86,7 @@ const BookForm = ({
           loading={loading}
           disabled={loading}
           onClick={() => submit({
-            title, authorName, link, imageUrl, note,
+            title, authorName, link, imageUrl, note, owned
           })}
         />
         <Button color='black' basic onClick={cancel}>

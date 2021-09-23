@@ -15,7 +15,7 @@ const Bookshelf = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const response = await fetch(`/api/books/get/all/${user.sub}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/books/get/all/${user.sub}`);
       const result = await response.json();
       if (result.success) {
         setBooks(result.books);
@@ -32,9 +32,9 @@ const Bookshelf = () => {
   if (loading) return <Loading />;
 
   const BOOKS = {
-    library: books,
-    finished: books.filter((book) => book.finished),
-    unread: books.filter((book) => !book.finished),
+    library: books.filter((book) => book.owned),
+    read: books.filter((book) => book.owned && book.finished),
+    discover: books.filter((book) => !book.owned),
   }
 
   return (
@@ -64,15 +64,17 @@ const Bookshelf = () => {
               onClick={handleItemClick}
             />
             <Menu.Item
-              name='unread'
-              active={activeItem === 'unread'}
+              name='read'
+              active={activeItem === 'read'}
               onClick={handleItemClick}
             />
             <Menu.Item
-              name='finished'
-              active={activeItem === 'finished'}
+              name='discover'
+              active={activeItem === 'discover'}
               onClick={handleItemClick}
-            />
+            >
+              Wish List
+            </Menu.Item>
           </Menu>
         </Grid.Column>
 

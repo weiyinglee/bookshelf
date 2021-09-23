@@ -14,7 +14,7 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
 
   useEffect(() => {
     const fetchBook = async () => {
-      const response = await fetch(`/api/books/get/${bookId}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/books/get/${bookId}`);
       const result = await response.json();
       if (result.success) {
         setBook(result.book);
@@ -27,7 +27,7 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
   if (loading) return <Loader active />;
 
   const handleFinished = async () => {
-    const response = await fetch(`/api/books/edit/${book._id}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/books/edit/${book._id}`, {
       method: 'PUT',
       body: JSON.stringify({ finished: !book.finished }),
       headers: {
@@ -39,9 +39,22 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
     if (result.success) refetch();
   }
 
+  const markOwned = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/books/edit/${book._id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ owned: true }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    const result = await response.json();
+    if (result.success) refetch();
+  }
+
   const onEdit = async (data) => {
     setProcessing(true);
-    const response = await fetch(`/api/books/edit/${book._id}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/books/edit/${book._id}`, {
       method: 'PUT',
       body: JSON.stringify(data),
       headers: {
@@ -56,7 +69,7 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
   };
 
   const onDelete = async (book) => {
-    const response = await fetch(`/api/books/delete/${book._id}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/books/delete/${book._id}`, {
       method: 'DELETE'
     })
     const result = await response.json();
@@ -79,7 +92,7 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
       <>
         <Confirm
           open={confirm}
-          content={`Are you sure to remove ${book.title} from your library ?`}
+          content={`Are you sure to remove ${book.title} from your bookshelf ?`}
           onCancel={() => setConfirm(false)}
           onConfirm={() => {
             onDelete(book);
@@ -108,13 +121,24 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button
-            icon="book"
-            content={`Mark as ${book.finished ? 'Unread' : 'Read'}`}
-            color="black"
-            basic={!book.finished}
-            onClick={handleFinished}
-          />
+          {book.owned ? (
+            <Button
+              icon="check"
+              content={`Mark as ${book.finished ? 'Unread' : 'Read'}`}
+              color="black"
+              basic={!book.finished}
+              onClick={handleFinished}
+            />
+          ) : (
+            <Button
+              icon="book"
+              content="Add to my library"
+              basic
+              color="black"
+              onClick={markOwned}
+            />
+          )}
+
           <Button
             icon="trash alternate"
             negative

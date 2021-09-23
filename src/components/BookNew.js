@@ -10,7 +10,7 @@ const BookNew = ({ refetch, children }) => {
 
   const onAdd = async (data) => {
     setLoading(true);
-    const response = await fetch(`/api/books/add/${user.sub}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/books/add/${user.sub}`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
