@@ -16,6 +16,16 @@ router.get('/get/all/:userId', (req, res, next) => {
   })
 })
 
+router.get('/get/:bookId', (req, res, next) => {
+  const { bookId } = req.params
+  Books
+  .findById(bookId)
+  .exec((err, book) => {
+    if (err) return res.json({ success: false, error: err })
+    res.json({ success: true, book })
+  })
+})
+
 router.post('/add/:userId', (req, res, next) => {
   const { userId } = req.params;
   const {

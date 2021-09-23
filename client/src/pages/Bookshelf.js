@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Grid, Menu, Header, Segment, Button,
+  Grid, Menu, Header, Button,
 } from 'semantic-ui-react';
 import Loading from '../components/Loading';
 import BookNew from '../components/BookNew';
@@ -38,13 +38,26 @@ const Bookshelf = () => {
   }
 
   return (
-    <Grid centered container>
+    <Grid centered stackable container id="bookshelf">
       <Grid.Row>
-        <Header>My Bookshelf</Header>
+        <Grid.Column>
+          <Header>My Bookshelf</Header>
+          <BookNew refetch={() => setLoading(true)}>
+            <Button
+              icon="plus"
+              size="mini"
+              floated="right"
+            />
+          </BookNew>
+        </Grid.Column>
       </Grid.Row>
       <Grid.Row>
         <Grid.Column width={4}>
-          <Menu fluid vertical tabular>
+          <Menu
+            fluid
+            vertical
+            secondary
+          >
             <Menu.Item
               name='library'
               active={activeItem === 'library'}
@@ -64,28 +77,13 @@ const Bookshelf = () => {
         </Grid.Column>
 
         <Grid.Column stretched width={12}>
-          <Segment>
-            <Grid>
-              {activeItem === 'library' && (
-                <Grid.Row>
-                  <Grid.Column>
-                    <BookNew refetch={() => setLoading(true)}>
-                      <Button
-                        icon="plus"
-                        size="mini"
-                        floated="right"
-                      />
-                    </BookNew>
-                  </Grid.Column>
-                </Grid.Row>
-              )}
-              <Grid.Row>
-                <Grid.Column>
-                  <BookList books={BOOKS[activeItem]} refetch={() => setLoading(true)} />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Segment>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <BookList books={BOOKS[activeItem]} refetch={() => setLoading(true)} />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </Grid.Column>
       </Grid.Row>
     </Grid>

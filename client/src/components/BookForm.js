@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Modal, Image, Button, Form, Input,
-  TextArea, Icon,
+  TextArea,
 } from 'semantic-ui-react';
 
 const NEW_BOOK = {
@@ -13,7 +13,7 @@ const NEW_BOOK = {
 };
 
 const BookForm = ({
-  book = NEW_BOOK, submit, onDelete, cancel, loading,
+  book = NEW_BOOK, submit, cancel, loading,
 }) => {
   const [title, setTitle] = useState(book.title);
   const [authorName, setAuthorName] = useState(book.authorName);
@@ -25,7 +25,7 @@ const BookForm = ({
     <>
       <Modal.Header>{book.title}</Modal.Header>
       <Modal.Content image>
-        <Image size='medium' src={imageUrl} wrapped />
+        <Image src={imageUrl} className="book-img-large" />
         <Modal.Description>
           <Form>
             <Form.Field>
@@ -67,25 +67,10 @@ const BookForm = ({
                 onChange={(e, { value }) => setNote(value)}
               />
             </Form.Field>
-            {book._id && (
-              <Button
-                icon
-                basic
-                negative
-                labelPosition='left'
-                onClick={onDelete}
-              >
-                <Icon name='trash alternate' />
-                Remove this book
-              </Button>
-            )}
           </Form>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color='black' onClick={cancel}>
-          Close
-        </Button>
         <Button
           content={book._id ? 'Save' : 'Add'}
           positive
@@ -95,6 +80,9 @@ const BookForm = ({
             title, authorName, link, imageUrl, note,
           })}
         />
+        <Button color='black' basic onClick={cancel}>
+          {book._id ? 'Back' : 'Close'}
+        </Button>
       </Modal.Actions>
     </>
   );
