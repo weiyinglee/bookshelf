@@ -10,7 +10,7 @@ const LibraryModal = ({ bookshelf, onClose }) => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/books/get/all/${bookshelf.userId}`);
       const result = await response.json();
       if (result.success) {
-        setBooks(result.books);
+        setBooks(result.books.filter((book) => book.public));
       } else {
         console.log(result.error);
       }

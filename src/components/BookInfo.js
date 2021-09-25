@@ -36,7 +36,7 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
       }
     })
     const result = await response.json();
-    if (result.success) refetch();
+    if (result.success) setLoading(true);
   }
 
   const markOwned = async () => {
@@ -49,7 +49,7 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
       }
     })
     const result = await response.json();
-    if (result.success) refetch();
+    if (result.success) setLoading(true);
   }
 
   const onEdit = async (data) => {
@@ -117,6 +117,7 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
               {book.title}
               <Header.Subheader>{`By ${book.authorName}`}</Header.Subheader>
             </Header>
+            {book.public && <span style={{ color: 'grey' }}>*This book title is viewable in public</span>}
             <p className="note">{book.note}</p>
           </Modal.Description>
         </Modal.Content>
@@ -138,7 +139,6 @@ const BookInfo = ({ bookId, onClose, refetch }) => {
               onClick={markOwned}
             />
           )}
-
           <Button
             icon="trash alternate"
             negative

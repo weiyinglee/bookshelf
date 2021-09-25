@@ -19,7 +19,7 @@ const Home = () => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/get`);
       const result = await response.json();
       if (result.success) {
-        setBookshelfs(result.users.filter((user) => !user.private));
+        setBookshelfs(result.users);
       }
       setLoading(false);
     };

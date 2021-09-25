@@ -37,6 +37,7 @@ const Bookshelf = () => {
     library: books.filter((book) => book.owned),
     read: books.filter((book) => book.owned && book.finished),
     discover: books.filter((book) => !book.owned),
+    public: books.filter((book) => book.public),
   }
 
   return (
@@ -56,6 +57,13 @@ const Bookshelf = () => {
               floated="right"
             />
           </BookNew>
+          <Button
+            icon="refresh"
+            basic
+            size="mini"
+            floated="right"
+            onClick={() => setLoading(true)}
+          />
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
@@ -81,6 +89,13 @@ const Bookshelf = () => {
               onClick={handleItemClick}
             >
               Wish List
+            </Menu.Item>
+            <Menu.Item
+              name='public'
+              active={activeItem === 'public'}
+              onClick={handleItemClick}
+            >
+              Public Titles
             </Menu.Item>
           </Menu>
         </Grid.Column>

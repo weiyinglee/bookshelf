@@ -11,6 +11,7 @@ const NEW_BOOK = {
   imageUrl: 'https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png',
   note: '',
   owned: false,
+  public: true,
 };
 
 const BookForm = ({
@@ -22,6 +23,7 @@ const BookForm = ({
   const [imageUrl, setImageUrl] = useState(book.imageUrl);
   const [note, setNote] = useState(book.note);
   const [owned, setOwned] = useState(book.owned);
+  const [isPublic, setIsPublic] = useState(book.public);
 
   return (
     <>
@@ -76,6 +78,13 @@ const BookForm = ({
                 onChange={(e, { checked }) => setOwned(checked)}
               />
             </Form.Field>
+            <Form.Field>
+              <Checkbox
+                label="Allow title displayed in Public"
+                checked={isPublic}
+                onChange={(e, { checked }) => setIsPublic(checked)}
+              />
+            </Form.Field>
           </Form>
         </Modal.Description>
       </Modal.Content>
@@ -86,7 +95,7 @@ const BookForm = ({
           loading={loading}
           disabled={loading}
           onClick={() => submit({
-            title, authorName, link, imageUrl, note, owned
+            title, authorName, link, imageUrl, note, owned, public: isPublic,
           })}
         />
         <Button color='black' basic onClick={cancel}>

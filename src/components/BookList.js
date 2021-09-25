@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 import { Grid, Image } from 'semantic-ui-react';
 import BookInfo from './BookInfo';
 
-const BookList = ({ books, refetch }) => {
+const BookList = ({ books }) => {
   const [book, setBook] = useState(null);
   if (books.length === 0) return <p>No result found.</p>
   return (
     <Grid columns={3}>
       {book && (
-        <BookInfo
-          bookId={book._id}
-          refetch={refetch}
-          onClose={() => setBook(null)}
-        />
+        <BookInfo bookId={book._id} onClose={() => setBook(null)} />
       )}
       {
         books.map((book) => (
