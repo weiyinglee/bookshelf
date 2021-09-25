@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
-  Grid, Menu, Header, Button,
+  Grid, Menu, Header, Button, Icon,
 } from 'semantic-ui-react';
 import Loading from '../components/Loading';
 import BookNew from '../components/BookNew';
 import BookList from '../components/BookList';
-import AuthContext from '../AuthContext';
+import AuthContext from '../contexts/AuthContext';
 
 const Bookshelf = () => {
+  const history = useHistory();
   const { user } = useContext(AuthContext);
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,6 +43,11 @@ const Bookshelf = () => {
     <Grid centered stackable container id="bookshelf">
       <Grid.Row>
         <Grid.Column>
+          <Icon
+            size="large"
+            name="arrow alternate circle left outline"
+            onClick={() => history.push('/home')}
+          />
           <Header>{`${user.name}'s Bookshelf`}</Header>
           <BookNew refetch={() => setLoading(true)}>
             <Button

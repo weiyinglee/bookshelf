@@ -1,19 +1,20 @@
-#auth {
-  padding-top: 15rem !important;
+#home {
   .segment {
-    padding: 5rem;
+    padding: 2.5rem;
     background-color: $background !important;
-  }
-  .button {
-    margin-top: 1rem;
+    .bookshelf-list {
+      margin-top: 2rem;
+    }
+    .button {
+      margin-top: 1rem;
+    }
   }
 }
 
 @media only screen and (max-width: 768px) {
-  #auth {
-    padding-top: 10rem !important;
+  #home {
     .segment {
-      padding: 2rem;
+      padding: 1.5rem;
     }
     .header {
       font-size: 16px !important;

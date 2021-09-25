@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Modal } from 'semantic-ui-react';
 import BookForm from './BookForm';
-import AuthContext from '../AuthContext';
+import AuthContext from '../contexts/AuthContext';
 
 const BookNew = ({ refetch, children }) => {
   const { user } = useContext(AuthContext);

@@ -1,22 +1,41 @@
 import React, { useContext } from 'react';
-import { Grid, Button } from 'semantic-ui-react';
-import AuthContext from '../AuthContext';
+import { Grid, Button, Radio } from 'semantic-ui-react';
+import AuthContext from '../contexts/AuthContext';
 
 const Navbar = () => {
-  const { logout } = useContext(AuthContext);
+  const { token, logout, user } = useContext(AuthContext);
+
+  const updatePrivacy = async (e, { checked }) => {
+    await fetch(`${process.env.REACT_APP_API_URL}/api/users/update/${user.email}`, {
+      method: 'PUT',
+      body: JSON.stringify({ private: checked }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+  };
 
   return (
     <Grid stackable container id="navbar">
       <Grid.Row>
         <Grid.Column textAlign="right">
-          <Button
-            icon="log out"
-            content="Log out"
-            basic
-            floated="right"
-            size="small"
-            onClick={() => logout({ returnTo: window.location.origin })}
-          />
+          {token && (
+            <>
+              <Radio
+                toggle
+                label="Set your bookshelf as Private"
+                onChange={updatePrivacy}
+              />
+              <Button
+                icon="log out"
+                content="Log out"
+                basic
+                floated="right"
+                onClick={() => logout({ returnTo: window.location.origin })}
+              />
+            </>
+          )}
         </Grid.Column>
       </Grid.Row>
     </Grid>

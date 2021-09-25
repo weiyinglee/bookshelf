@@ -1,6 +1,11 @@
 #bookshelf {
+  .icon {
+    display: inline;
+    margin-right: 1rem;
+    padding-bottom: 1rem;
+  }
   .header {
-    display: inline-block;
+    display: inline;
     padding-top: 0.5rem;
     text-align: center;
   }

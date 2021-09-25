@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { AuthProvider } from './AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(

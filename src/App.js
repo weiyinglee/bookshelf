@@ -4,37 +4,30 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import AuthContext from './AuthContext';
-import Auth from './pages/Auth';
+import AuthContext from './contexts/AuthContext';
+import DataProvider from './contexts/DataContext';
+import Home from './pages/Home';
 import Bookshelf from './pages/Bookshelf';
 import Navbar from './components/Navbar';
 import './styles/styles.scss';
 
-const appPages = (
-  <>
-    <Navbar />
-    <Switch>
-      <Route path="/" component={Bookshelf} />
-    </Switch>
-  </>
-);
-
-const logInPage = (
-  <Switch>
-    <Route path="/" component={Auth} />
-  </Switch>
-);
-
 const App = () => {
   const { token } = useContext(AuthContext);
-
   return (
-    <Router>
-      <div>
-        {!token && logInPage}
-        {token && appPages}
-      </div>
-    </Router>
+    <DataProvider>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route
+              path="/bookshelf"
+              render={() => token ? <Bookshelf /> : <Home />}
+            />
+            <Route path="/" component={Home} />
+          </Switch>
+        </div>
+      </Router>
+    </DataProvider>
   );
 };
 
