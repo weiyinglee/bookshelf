@@ -45,11 +45,12 @@ const Bookshelf = () => {
       <Grid.Row>
         <Grid.Column>
           <Icon
+            inverted
             size="large"
             name="arrow alternate circle left outline"
             onClick={() => history.push('/home')}
           />
-          <Header>{`${user.name}'s Bookshelf`}</Header>
+          <Header inverted>{`${user.name}'s Bookshelf`}</Header>
           <BookNew refetch={() => setLoading(true)}>
             <Button
               icon="plus"
@@ -59,7 +60,6 @@ const Bookshelf = () => {
           </BookNew>
           <Button
             icon="refresh"
-            basic
             size="mini"
             floated="right"
             onClick={() => setLoading(true)}
@@ -72,31 +72,38 @@ const Bookshelf = () => {
             fluid
             vertical
             secondary
+            inverted
           >
             <Menu.Item
               name='library'
               active={activeItem === 'library'}
               onClick={handleItemClick}
-            />
+            >
+              {`Library (${BOOKS['library'].length})`}
+            </Menu.Item>
             <Menu.Item
               name='read'
               active={activeItem === 'read'}
               onClick={handleItemClick}
-            />
+            >
+              {`Read (${BOOKS['read'].length})`}
+            </Menu.Item>
             <Menu.Item
               name='discover'
               active={activeItem === 'discover'}
               onClick={handleItemClick}
             >
-              Wish List
+              {`Wish List (${BOOKS['discover'].length})`}
             </Menu.Item>
-            <Menu.Item
-              name='public'
-              active={activeItem === 'public'}
-              onClick={handleItemClick}
-            >
-              Public Titles
-            </Menu.Item>
+            {/*
+              <Menu.Item
+                name='public'
+                active={activeItem === 'public'}
+                onClick={handleItemClick}
+              >
+                Public Titles
+              </Menu.Item>
+            */}
           </Menu>
         </Grid.Column>
 

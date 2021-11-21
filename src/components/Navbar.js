@@ -14,6 +14,7 @@ const Navbar = () => {
               icon="log out"
               content="Log out"
               basic
+              inverted
               floated="right"
               onClick={() => logout({ returnTo: window.location.origin })}
             />

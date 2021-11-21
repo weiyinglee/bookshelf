@@ -5,6 +5,13 @@ import BookInfo from './BookInfo';
 const BookList = ({ books }) => {
   const [book, setBook] = useState(null);
   if (books.length === 0) return <p>No result found.</p>
+  books.sort((a, b) => {
+    if (a.authorName[0] < b.authorName[0])
+      return -1;
+    if ( a.authorName[0] > b.authorName[0])
+      return 1;
+    return 0;
+  });
   return (
     <Grid columns={3}>
       {book && (
